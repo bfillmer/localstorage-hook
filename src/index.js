@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { Application } from 'Atoms'
 import { Routes } from 'Routes'
+import { Provider, Consumer } from 'Screens/ValueContext'
 
 import { theme, GlobalStyle } from 'theme'
 
@@ -13,9 +14,17 @@ function App () {
     <React.Fragment>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Application>
-          <Routes />
-        </Application>
+        <Provider>
+          <Application>
+            <Routes />
+            {/* Say, a header component that needs the localstorage value. */}
+            <Consumer>
+              {({ item }) => (
+                <p>Separate component: {item}</p>
+              )}
+            </Consumer>
+          </Application>
+        </Provider>
       </ThemeProvider>
     </React.Fragment>
   )
